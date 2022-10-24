@@ -14,9 +14,12 @@ formula6 = Or(Not(And(Atom('p'), Atom('s'))), Atom('q'))  # ((¬(p /\ s)) v q)
 formula7 = Implies(Not(And(Atom('p'), Atom('s'))), And(Atom('q'), Atom('r')))  # ((¬(p /\ s)) -> (q /\ r))
 formula8 = Implies(Not(And(Atom('p'), Atom('s'))), And(Atom('q'), Not(And(Atom('p'), Atom('s')))))
 # ((¬(p /\ s)) -> (q /\ (¬(p /\ s))))
+formula9 = And(Not(formula1), formula1)
+formula10= Not(Implies(formula1, formula2))
+#print(truth_value(formula8, {'p':False, 's': False, 'q': True}))
 
-print(truth_value(formula8, {'p':False, 's': False, 'q': True}))
-
+#print(satisfiability_checking(formula8))
+print(satisfiability_checking(formula10))
 # ---------> ATOMS
 #print(atoms_name(formula8))
 #print(atoms(formula8))

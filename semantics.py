@@ -3,6 +3,7 @@
 
 from formula import *
 from functions import atoms
+from interpretation_fol import Interpretation
 
 
 def truth_value(formula, interpretation):
@@ -11,25 +12,25 @@ def truth_value(formula, interpretation):
     """
     if isinstance(formula, Atom):
         atom = str(formula)
-        if(interpretation.__contains__(atom)):
+        if (interpretation.__contains__(atom)):
             return interpretation[atom]
         else:
             None
 
     if isinstance(formula, Not):
         value = truth_value(formula.inner, interpretation)
-        if(value is None):
+        if (value is None):
             return None
         else:
-           return not value
+            return not value
 
     if isinstance(formula, Implies):
         left = truth_value(formula.left, interpretation)
         right = truth_value(formula.right, interpretation)
-        
-        if(left and not right):
+
+        if (left and not right):
             return False
-        elif(left is None):
+        elif (left is None):
             return None
         else:
             return True
@@ -37,10 +38,10 @@ def truth_value(formula, interpretation):
     if isinstance(formula, And):
         left = truth_value(formula.left, interpretation)
         right = truth_value(formula.right, interpretation)
-        
-        if(left and right):
+
+        if (left and right):
             return True
-        elif(left is None or right is None):
+        elif (left is None or right is None):
             return None
         else:
             return False
@@ -48,14 +49,13 @@ def truth_value(formula, interpretation):
     if isinstance(formula, Or):
         left = truth_value(formula.left, interpretation)
         right = truth_value(formula.right, interpretation)
-       
-        if(left or right):
+
+        if (left or right):
             return True
-        elif(left is None or right is None):
+        elif (left is None or right is None):
             return None
         else:
             return False
-
 
 
 # function TT-Entails? in the book AIMA.
@@ -77,9 +77,43 @@ def is_valid(formula):
     # ======== YOUR CODE HERE ========
 
 
-def satisfiability_brute_force(formula):
+def satisfiability_checking(formula):
+    list_atoms = atoms(formula)
+    interpretation = {}
+    return satisfiability_brute_force(formula, list_atoms, interpretation)
+
+
+def satisfiability_brute_force(formula, atoms, interpretacao):
     """Checks whether formula is satisfiable.
     In other words, if the input formula is satisfiable, it returns an interpretation that assigns true to the formula.
     Otherwise, it returns False."""
-    pass
+    if not atoms:
+        output = truth_value(formula, interpretacao)
+        #print(formula,interpretacao)
+        if(output):
+            return interpretacao
+        else:
+            return False
+        # return interpretacao if output else False
+
+    removed_atom = atoms.pop()
+    true_interpretacao = union_dict(interpretacao, {
+        str(removed_atom): True
+    })
+    false_interpretacao = union_dict(interpretacao, {
+        str(removed_atom): False
+    })
+
+    result = satisfiability_brute_force(
+        formula, atoms.copy(), true_interpretacao)
+
+    if (result):
+        return result
+    else:
+        return satisfiability_brute_force(formula, atoms.copy(), false_interpretacao)
+
+    # return result if result else satisfiability_brute_force(formula, atoms.copy(), false_interpretacao)
     # ======== YOUR CODE HERE ========
+
+def union_dict (x: dict, y: dict):
+    return {**x, **y}
