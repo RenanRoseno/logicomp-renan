@@ -3,7 +3,7 @@
 
 from formula import *
 from functions import *
-
+from semantics import *
 
 formula1 = Atom('p')  # p
 formula2 = Atom('q')  # q
@@ -14,10 +14,18 @@ formula6 = Or(Not(And(Atom('p'), Atom('s'))), Atom('q'))  # ((¬(p /\ s)) v q)
 formula7 = Implies(Not(And(Atom('p'), Atom('s'))), And(Atom('q'), Atom('r')))  # ((¬(p /\ s)) -> (q /\ r))
 formula8 = Implies(Not(And(Atom('p'), Atom('s'))), And(Atom('q'), Not(And(Atom('p'), Atom('s')))))
 # ((¬(p /\ s)) -> (q /\ (¬(p /\ s))))
-print(atoms_name(formula8))
-#print(atoms(formula8))
 
-#
+print(truth_value(formula8, {'p':False, 's': False, 'q': True}))
+
+# ---------> ATOMS
+#print(atoms_name(formula8))
+#print(atoms(formula8))
+# for atom in atoms(formula8):
+#     print(atom)
+
+
+
+
 #print(atoms_name(formula8))
 
 # print(formula1 == formula3)
