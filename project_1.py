@@ -3,7 +3,7 @@ import numpy as np
 from semantics import *
 
 
-file_name = 'column_bin_3a_2p'
+file_name = 'column_bin_5a_3p'
 qtd_rules = 2
 signals = ['le', 'gt', 's']
 
@@ -32,8 +32,15 @@ def get_atoms():
                     atoms.append(atom)
     return atoms
 
+atoms = get_atoms()
+
+def print_atoms(atoms):
+    for atom in atoms:
+        print(atom.name)
+    print('------------------')
+
 def get_atoms_description():
-    atoms = get_atoms()
+    #atoms = get_atoms()
     for atom in atoms:
         print(atom.name)
 
@@ -44,13 +51,31 @@ def or_all(list_formulas):
         first_formula = Or(first_formula, formula)
     return first_formula
 
+def and_all(list_formulas):
+    first_formula = list_formulas[0]
+    del list_formulas[0]
+    for formula in list_formulas:
+        first_formula = And(first_formula, formula)
+    return first_formula
+
 # Cada atributo e cada regra temos exatamente uma das tres possibilidades <=, > ou não aparece
 def first_restriction():
-    atoms = get_atoms()
     return or_all(atoms)
 
-# print(regras)
-# print(paciente)
+# Cada regra deve ter algum atributo aparecendo nela (filtrar todos que a formula não aparece e negar)
+def second_restriction():
+    or_atomsAux = []
+    or_formulas = []
+    for i in range(qtd_rules):    
+        for atom in atoms:
+            string_search = '_'+str(i+1)
+            if '_s' in atom.name and string_search in atom.name:
+                or_atomsAux.append(Not(atom))
+        or_atomsAux = or_all(or_atomsAux)
+        or_formulas.append(or_atomsAux)
+        or_atomsAux = []
+
+    return and_all(or_formulas)
 
 #  X,a,i,le
 #  a => atributo
@@ -59,8 +84,10 @@ def first_restriction():
 #  C,i,j
 #  n => quantidade de pacientes
 
+#print(second_restriction())
 
-formula = first_restriction()
+formula = And(first_restriction(), second_restriction())
+
 #get_atoms_description()
 # Verifica se existe solução satisfativel
 solution = satisfiability_checking(formula)
