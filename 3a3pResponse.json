@@ -1,0 +1,13 @@
+{
+    "X_PI <= 42.09_1_s": "True",
+    "X_PI <= 70.62_1_gt": "True",
+    "C_1_2": "True",
+    "C_1_1": "True",
+    "X_PI <= 42.09_1_le": "False",
+    "X_GS <= 57.55_1_le": "False",
+    "X_PI <= 70.62_1_s": "True",
+    "X_PI <= 42.09_1_gt": "True",
+    "X_GS <= 57.55_1_gt": "False",
+    "X_GS <= 57.55_1_s": "False",
+    "X_PI <= 70.62_1_le": "False"
+  }
