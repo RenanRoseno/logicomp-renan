@@ -8,7 +8,7 @@ S = 2
 
 
 file_name = 'column_bin_5a_3p'
-qtd_rules = 4
+qtd_rules = 1
 signals = ['le', 'gt', 's']
 
 with open('../arquivos_Pacientes/' + file_name + '.csv', 'r') as ficheiro:
@@ -39,6 +39,10 @@ def get_atoms():
 
 atoms = get_atoms()
 
+def convertJson(formula):
+    formula_str = str(formula)
+    return formula_str.replace("'", '"').replace('True', '"True"').replace('False', '"False"')
+    
 
 def print_atoms(atoms_array):
     for atom in atoms_array:
@@ -68,14 +72,10 @@ def and_all(list_formulas):
     return first_formula
 
 # Cada atributo e cada regra temos exatamente uma das tres possibilidades <=, > ou não aparece
-
-
 def first_restriction():
     return or_all(atoms)
 
 # Cada regra deve ter algum atributo aparecendo nela (filtrar todos que a formula não aparece e negar)
-
-
 def second_restriction():
     or_atoms_aux = []
     or_formulas = []
@@ -91,8 +91,6 @@ def second_restriction():
     return and_all(or_formulas)
 
 # Para cada paciente SEM patologia e cada regra, algum atributo pode não ser aplicado a regra
-
-
 def third_restriction():
     or_formulas = []
     or_atoms_aux = []
@@ -134,8 +132,9 @@ formula = And(
 
 # # Verifica se existe solução satisfativel
 solution = satisfiability_checking(formula)
-if solution:
-    print(solution)
-else:
-    print('Não existe um conjunto com ' + str(qtd_rules) +
-          ' regras que classifique todos os pacientes')
+print(convertJson(solution))
+# if solution:
+#     print(solution)
+# else:
+#     print('Não existe um conjunto com ' + str(qtd_rules) +
+#           ' regras que classifique todos os pacientes')
