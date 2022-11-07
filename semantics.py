@@ -89,12 +89,10 @@ def satisfiability_brute_force(formula, atoms, interpretacao):
     Otherwise, it returns False."""
     if not atoms:
         output = truth_value(formula, interpretacao)
-        #print(formula,interpretacao)
         if(output):
             return interpretacao
         else:
             return False
-        # return interpretacao if output else False
 
     removed_atom = atoms.pop()
     true_interpretacao = union_dict(interpretacao, {
@@ -112,8 +110,6 @@ def satisfiability_brute_force(formula, atoms, interpretacao):
     else:
         return satisfiability_brute_force(formula, atoms.copy(), false_interpretacao)
 
-    # return result if result else satisfiability_brute_force(formula, atoms.copy(), false_interpretacao)
-    # ======== YOUR CODE HERE ========
 
 def union_dict (x: dict, y: dict):
     return {**x, **y}
