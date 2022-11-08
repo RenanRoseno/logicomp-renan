@@ -9,7 +9,7 @@ GT = 1
 S = 2
 
 
-file_name = 'column_bin_5a_3p'
+file_name = 'column_bin_8a_8p'
 qt_rules = 1
 signals = ['le', 'gt', 's']
 array_splited = []
@@ -98,7 +98,6 @@ def and_all(list_formulas):
 
 
 def first_restriction():
-    print('')
     list_complete = []
     for index in range(len(array_splited)):
         list_atoms_splited = array_splited[index]
