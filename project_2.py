@@ -12,7 +12,7 @@ GT = 1
 S = 2
 
 var_pool = IDPool()
-file_name = 'column_bin_8a_8p'
+file_name = 'column_bin_36a_155p'
 qt_rules = 2
 signals = [1, 2, 0] # respectivamente ['le', 'gt', 's']
 array_splited = []
@@ -80,8 +80,6 @@ def first_restriction_sat():
     
     for index in range(len(array_splited)):
         list_atoms_splited = array_splited[index]
-
-
         for i in range(len(list_atoms_splited)):
             neg_all.append(-var_pool.id(list_atoms_splited[i].name))
         list_complete.append(neg_all)
@@ -117,12 +115,10 @@ def third_restriction_sat():
 
     for patient in patients:
         if (patient[len(patient) - 1] == '0'):
-            print(patient)
             for i in range(qt_rules):
                 index = 0
                 for patology in patient:
                     if attributes[index] != 'P':
-                        print(attributes[index])
                         attr = str(attributes[index])[5: -1]
                         attr = str(int(float(attr)))
                         
@@ -136,7 +132,6 @@ def third_restriction_sat():
                     index += 1
                 or_formulas.append(or_atoms_aux)
                 or_atoms_aux = []
-                print("---")
     return or_formulas
 
 def fourth_restriction_sat():
@@ -182,6 +177,7 @@ def fifth_restriction_sat():
             or_atoms_aux = []
     return or_formulas
 
+print(fifth_restriction_sat())
 
 final_formula = first_restriction_sat() + second_restriction_sat() + third_restriction_sat() + fourth_restriction_sat() + fifth_restriction_sat()
 
