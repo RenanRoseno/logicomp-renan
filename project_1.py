@@ -9,8 +9,8 @@ GT = 1
 S = 2
 
 
-file_name = 'column_bin_8a_8p'
-qt_rules = 1
+file_name = 'column_bin_3a_5p'
+qt_rules = 2
 signals = ['le', 'gt', 's']
 array_splited = []
 # ------------------------------------
@@ -206,24 +206,25 @@ def fifth_restriction():
     return and_all(or_formulas)
 
 
-formula = And(
-    And(
-        And(
-            first_restriction(),
-            second_restriction()
-        ),
-        And(
-            third_restriction(),
-            fourth_restriction())
-    ),
-    fifth_restriction())
+print(fourth_restriction())
+# formula = And(
+#     And(
+#         And(
+#             first_restriction(),
+#             second_restriction()
+#         ),
+#         And(
+#             third_restriction(),
+#             fourth_restriction())
+#     ),
+#     fifth_restriction())
 
 
-# # # Verifica se existe solução satisfativel
-solution = satisfiability_checking(formula)
+# # # # Verifica se existe solução satisfativel
+# solution = satisfiability_checking(formula)
 
-if solution:
-    print(convert_json(str(solution)))
-else:
-    print('Não existe um conjunto com ' + str(qt_rules) +
-          ' regras que classifique todos os pacientes')
+# if solution:
+#     print(convert_json(str(solution)))
+# else:
+#     print('Não existe um conjunto com ' + str(qt_rules) +
+#           ' regras que classifique todos os pacientes')
