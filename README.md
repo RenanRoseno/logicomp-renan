@@ -3,4 +3,4 @@ Python code for the course Logic for Computer Science at Instituto Federal de Ed
 
 In this project, you will code Python implementations for pseudocode algorithms in the course, as well as logic models for problems such as sudoku, course timetabling, nurse scheduling, rule learning, nonogram, minesweeper.
 
-# Aluno: Renan Roseno dos Santos
+#### Aluno: Renan Roseno dos Santos
